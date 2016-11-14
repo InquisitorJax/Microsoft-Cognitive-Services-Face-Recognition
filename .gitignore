@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog/obj/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.Droid/obj/Debug/__library_projects__
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.UWP/obj/x86/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog/bin/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.Droid/bin/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.Droid/obj/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/bin/iPhone/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/obj/iPhone/Debug
