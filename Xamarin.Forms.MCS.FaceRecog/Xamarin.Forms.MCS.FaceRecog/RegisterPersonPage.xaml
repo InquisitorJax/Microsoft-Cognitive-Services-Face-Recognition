@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Xamarin.Forms.MCS.FaceRecog.RegisterPersonPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:Wibci.Xamarin.Forms.Converters;assembly=Wibci.Xamarin.Forms.Converters">
+    <ContentPage.Content>
+        <Grid Padding="12,0,12,0">
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <conv:ByteArrayToImageSourceConverter x:Key="bisc" />
+                    <conv:NullValueToBooleanConverter x:Key="nvc" />
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label IsVisible="{Binding Message,
+                                           Converter={StaticResource nvc},
+                                           ConverterParameter=invert}"
+                       Text="{Binding Message}"
+                       TextColor="Red" />
+                <Label FontSize="Micro" Text="Name" />
+                <Entry Text="{Binding Model.Name}" />
+                <Label FontSize="Micro" Text="email" />
+                <Entry Keyboard="Email" Text="{Binding Model.Data.Email}" />
+                <Label FontSize="Micro" Text="Phone" />
+                <Entry Keyboard="Telephone" Text="{Binding Model.Data.Phone}" />
+                <Label FontSize="Micro" Text="tap to add profile picture" />
+                <StackLayout Orientation="Horizontal">
+                    <Switch IsToggled="{Binding UseChoosePicture}" />
+                    <Label IsVisible="{Binding UseChoosePicture, Converter={StaticResource bib}}" Text="use camera" />
+                    <Label IsVisible="{Binding UseChoosePicture}" Text="pick photo" />
+                </StackLayout>
+
+                <Image HeightRequest="100"
+                       HorizontalOptions="Center"
+                       Source="{Binding Model.Data.Mug,
+                                        Converter={StaticResource bisc},
+                                        ConverterParameter=ic_person}"
+                       WidthRequest="100">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectPictureCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+            <Button Grid.Row="1"
+                    Command="{Binding RegisterPersonCommand}"
+                    Text="Register Person" />
+            <Grid Grid.RowSpan="2"
+                  BackgroundColor="Gray"
+                  IsVisible="{Binding IsBusy}"
+                  Opacity="0.8">
+                <Label HorizontalOptions="Center"
+                       Text="{Binding BusyMessage}"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

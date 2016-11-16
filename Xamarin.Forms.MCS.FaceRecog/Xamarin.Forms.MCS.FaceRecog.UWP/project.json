@@ -1,6 +1,11 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Newtonsoft.Json": "9.0.1",
+    "Prism.Core": "6.2.0",
+    "Wibci.LogicCommand": "1.0.2",
+    "Wibcisoft.Xamarin.Forms.Converters": "1.0.2",
+    "Xam.Plugin.Media": "2.6.1",
     "Xamarin.Forms": "2.3.2.127"
   },
   "frameworks": {

@@ -1,4 +1,8 @@
-﻿namespace Xamarin.Forms.MCS.FaceRecog
+﻿using Xamarin.Forms.MCS.FaceRecog.Commands;
+using Xamarin.Forms.MCS.FaceRecog.FaceApi;
+using Xamarin.Forms.MCS.FaceRecog.Repo;
+
+namespace Xamarin.Forms.MCS.FaceRecog
 {
     public partial class App : Application
     {
@@ -6,7 +10,14 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new FaceRecog.MainPage());
+            FaceClient.RegisterCommands();
+
+            DependencyService.Register<IRecognizePersonCommand, RecognizePersonCommand>();
+            DependencyService.Register<ITakePictureCommand, TakePictureCommand>();
+            DependencyService.Register<IChoosePictureCommand, ChoosePictureCommand>();
+            DependencyService.Register<IPersonStore, InMemoryPersonStore>();
+
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnResume()

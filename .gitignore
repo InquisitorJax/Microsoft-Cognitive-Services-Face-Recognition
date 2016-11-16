@@ -11,3 +11,6 @@
 /Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.Droid/obj/Debug
 /Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/bin/iPhone/Debug
 /Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/obj/iPhone/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/bin/iPhoneSimulator/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/obj/iPhoneSimulator/Debug
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog/ApiKeyProvider.cs
