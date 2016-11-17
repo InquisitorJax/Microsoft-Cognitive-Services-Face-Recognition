@@ -5,21 +5,15 @@ using Xamarin.Forms.MCS.FaceRecog.Model;
 
 namespace Xamarin.Forms.MCS.FaceRecog.Commands
 {
-
-    public interface IDetectPersonCommand : IAsyncLogicCommand<RecognizePersonContext, DetectPersonResult>
+    public interface IDetectPersonCommand : IAsyncLogicCommand<DetectPersonContext, DetectPersonResult>
     {
     }
 
-    public class DetectPersonCommand : AsyncLogicCommand<RecognizePersonContext, DetectPersonResult>, IDetectPersonCommand
+    public class DetectPersonCommand : AsyncLogicCommand<DetectPersonContext, DetectPersonResult>, IDetectPersonCommand
     {
         private IChoosePictureCommand ChoosePicture
         {
             get { return DependencyService.Get<IChoosePictureCommand>(); }
-        }
-
-        private ITakePictureCommand TakePicture
-        {
-            get { return DependencyService.Get<ITakePictureCommand>(); }
         }
 
         private IDetectFaceCommand DetectFace
@@ -27,7 +21,12 @@ namespace Xamarin.Forms.MCS.FaceRecog.Commands
             get { return DependencyService.Get<IDetectFaceCommand>(); }
         }
 
-        public override async Task<DetectPersonResult> ExecuteAsync(RecognizePersonContext request)
+        private ITakePictureCommand TakePicture
+        {
+            get { return DependencyService.Get<ITakePictureCommand>(); }
+        }
+
+        public override async Task<DetectPersonResult> ExecuteAsync(DetectPersonContext request)
         {
             var retResult = new DetectPersonResult();
 
@@ -47,7 +46,13 @@ namespace Xamarin.Forms.MCS.FaceRecog.Commands
 
             if (retResult.IsValid() && pictureResult.TaskResult == TaskResult.Success)
             {
-                var faceContext = new DetectFaceContext { FaceImage = pictureResult.Image };
+                var faceContext = new DetectFaceContext
+                {
+                    FaceImage = pictureResult.Image,
+                    DetectFaceAttributes = request.DetectFaceAttributes,
+                    DetectFaceId = request.DetectFaceId,
+                    DetectFaceLandmarks = request.DetectFaceLandmarks
+                };
                 var recogResult = await DetectFace.ExecuteAsync(faceContext);
 
                 retResult.Notification.AddRange(recogResult.Notification);
@@ -62,9 +67,20 @@ namespace Xamarin.Forms.MCS.FaceRecog.Commands
         }
     }
 
-    public class DetectPersonResult : CommandResult
+    public class DetectPersonContext : RecognizePersonContext
     {
-        public FaceData FaceData { get; set; }   
+        public DetectPersonContext()
+        {
+            DetectFaceAttributes = true;
+        }
+
+        public bool DetectFaceAttributes { get; set; }
+        public bool DetectFaceId { get; set; }
+        public bool DetectFaceLandmarks { get; set; }
     }
 
+    public class DetectPersonResult : CommandResult
+    {
+        public FaceData FaceData { get; set; }
+    }
 }

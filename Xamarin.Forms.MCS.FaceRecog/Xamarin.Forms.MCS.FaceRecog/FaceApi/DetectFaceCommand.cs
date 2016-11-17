@@ -25,22 +25,24 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
                 var faceServiceClient = new FaceServiceClient(faceKey);
                 using (MemoryStream ms = new MemoryStream(request.FaceImage))
                 {
+                    FaceAttributeType[] faceAttributes = null;
+
+                    if (request.DetectFaceAttributes)
+                    {
+                        faceAttributes = new[] { FaceAttributeType.Age, FaceAttributeType.Gender, FaceAttributeType.Glasses, FaceAttributeType.Smile };
+                    }
                     // detect faces in image
-                    var faces = await faceServiceClient.DetectAsync(ms);
+                    var faces = await faceServiceClient.DetectAsync(ms, request.DetectFaceId, request.DetectFaceLandmarks, faceAttributes);
                     var face = faces.FirstOrDefault();
 
                     if (face != null)
                     {
                         retResult.Face = new FaceData();
                         if (face.FaceAttributes != null)
-                        {                            
+                        {
                             retResult.Face.Age = face.FaceAttributes.Age;
                             retResult.Face.Gender = face.FaceAttributes.Gender;
                             retResult.Face.Glasses = face.FaceAttributes.Glasses.ToString();
-                        }
-                        else
-                        {
-                            retResult.Notification.Add("Face Attributes could not be found");
                         }
                     }
                     else
@@ -59,6 +61,9 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
 
     public class DetectFaceContext
     {
+        public bool DetectFaceAttributes { get; set; }
+        public bool DetectFaceId { get; set; }
+        public bool DetectFaceLandmarks { get; set; }
         public byte[] FaceImage { get; set; }
     }
 

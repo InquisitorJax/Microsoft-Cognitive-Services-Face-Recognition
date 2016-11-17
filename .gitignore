@@ -17,3 +17,5 @@
 /.vs/slnMCSFaceRecog/v14
 /Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.Droid/Xamarin.Forms.MCS.FaceRecog.Droid.csproj.bak
 /Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.iOS/Xamarin.Forms.MCS.FaceRecog.iOS.csproj.bak
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.UWP/bin
+/Xamarin.Forms.MCS.FaceRecog/Xamarin.Forms.MCS.FaceRecog.UWP/obj/ARM/Debug/Prism/en
