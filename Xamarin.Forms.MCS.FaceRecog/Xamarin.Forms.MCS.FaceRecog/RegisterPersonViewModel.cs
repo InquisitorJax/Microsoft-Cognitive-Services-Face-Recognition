@@ -63,19 +63,19 @@ namespace Xamarin.Forms.MCS.FaceRecog
         private async void RegisterPerson()
         {
             Message = null;
-            ShowBusy("Registering person...");
+            ShowBusy("commencing mutant registration...");
 
             try
             {
                 if (Model.Data.Mug == null)
                 {
-                    Message = "Please add a picture of the person first";
+                    Message = "Please add a picture of the mutant first";
                     return;
                 }
 
                 if (string.IsNullOrEmpty(Model.Name))
                 {
-                    Message = "Please add a name for the person";
+                    Message = "Please add a name for the mutant";
                     return;
                 }
 

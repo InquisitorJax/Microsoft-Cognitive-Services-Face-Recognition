@@ -39,6 +39,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\DetectPersonCommand.cs" />
     <Compile Include="Commands\RecognizePersonCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="FaceApi\DeletePersonGroupCommand.cs" />

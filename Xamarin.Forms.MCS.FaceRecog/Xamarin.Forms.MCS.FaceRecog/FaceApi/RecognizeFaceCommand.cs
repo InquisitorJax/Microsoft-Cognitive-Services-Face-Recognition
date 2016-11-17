@@ -33,7 +33,7 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
                     try
                     {
                         var results = await faceServiceClient.IdentifyAsync(request.GroupId, faceIds);
-                        if (results.Any())
+                        if (results.Any() && results[0].Candidates.Any())
                         {
                             var result = results[0].Candidates[0].PersonId;
 

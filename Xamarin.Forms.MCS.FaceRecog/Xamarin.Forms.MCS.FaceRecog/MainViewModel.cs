@@ -1,5 +1,5 @@
-﻿using Prism.Commands;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using Prism.Commands;
 using Xamarin.Forms.MCS.FaceRecog.Commands;
 using Xamarin.Forms.MCS.FaceRecog.FaceApi;
 using Xamarin.Forms.MCS.FaceRecog.Model;
@@ -10,9 +10,15 @@ namespace Xamarin.Forms.MCS.FaceRecog
     {
         private string _message;
         private Mutant _searchResult;
+        private FaceData _faceData;
+
+        public FaceData FaceData
+        {
+            get { return _faceData; }
+            set { SetProperty(ref _faceData, value); }
+        }
 
         private bool _useCamera;
-
         private bool _useFrontCamera;
 
         public MainViewModel()
@@ -20,11 +26,48 @@ namespace Xamarin.Forms.MCS.FaceRecog
             AddNewPersonCommand = new DelegateCommand(AddNewPerson);
             RecognizePersonCommand = new DelegateCommand(RecognizePerson);
             DeleteAllPeopleCommand = new DelegateCommand(DeleteAllPeople);
+            DetectPersonCommand = new DelegateCommand(DetectPerson);
+        }
+        
+
+        private async void DetectPerson()
+        {
+            ShowBusy("analysing...");
+
+            FaceData = null;
+            SearchResult = null;
+
+            try
+            {
+                var context = new RecognizePersonContext { UseCamera = UseCamera };
+                if (UseCamera)
+                {
+                    context.CameraOption = UseFrontCamera ? CameraOption.Front : CameraOption.Back;
+                }
+
+                var detectResult = await DetectPersonLogic.ExecuteAsync(context);
+
+                if (detectResult.IsValid())
+                {
+                    FaceData = detectResult.FaceData;
+                    Message = "Mutant Detected!";
+                }
+                else
+                {
+                    Message = detectResult.Notification.ToString();
+                }
+            }
+            finally
+            {
+                NotBusy();
+            }
         }
 
         public ICommand AddNewPersonCommand { get; }
 
         public ICommand DeleteAllPeopleCommand { get; }
+
+        public ICommand DetectPersonCommand { get; set; }
 
         public string Message
         {
@@ -57,7 +100,12 @@ namespace Xamarin.Forms.MCS.FaceRecog
             get { return DependencyService.Get<IDeletePersonGroupCommand>(); }
         }
 
-        private IFindGroupPeopleCommand FindPeople
+        private IDetectPersonCommand DetectPersonLogic
+        {
+            get { return DependencyService.Get<IDetectPersonCommand>(); }
+        }
+
+    private IFindGroupPeopleCommand FindPeople
         {
             get { return DependencyService.Get<IFindGroupPeopleCommand>(); }
         }
@@ -123,6 +171,8 @@ namespace Xamarin.Forms.MCS.FaceRecog
             ShowBusy("recognizing...");
 
             Message = null;
+            FaceData = null;
+            SearchResult = null;
 
             try
             {

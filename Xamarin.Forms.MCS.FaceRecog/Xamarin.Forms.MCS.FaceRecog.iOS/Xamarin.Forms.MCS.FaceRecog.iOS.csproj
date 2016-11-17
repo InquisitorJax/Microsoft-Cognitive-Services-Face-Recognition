@@ -10,7 +10,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Xamarin.Forms.MCS.FaceRecog.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Xamarin.Forms.MCS.FaceRecog.iOS</AssemblyName>
+    <AssemblyName>XamarinFormsMCSFaceRecogiOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

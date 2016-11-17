@@ -31,12 +31,17 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
 
                     if (face != null)
                     {
-                        retResult.Face = new FaceData
+                        retResult.Face = new FaceData();
+                        if (face.FaceAttributes != null)
+                        {                            
+                            retResult.Face.Age = face.FaceAttributes.Age;
+                            retResult.Face.Gender = face.FaceAttributes.Gender;
+                            retResult.Face.Glasses = face.FaceAttributes.Glasses.ToString();
+                        }
+                        else
                         {
-                            Age = face.FaceAttributes.Age,
-                            Gender = face.FaceAttributes.Gender,
-                            Glasses = face.FaceAttributes.Glasses.ToString()
-                        };
+                            retResult.Notification.Add("Face Attributes could not be found");
+                        }
                     }
                     else
                     {
@@ -46,7 +51,7 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
             }
             catch (Exception ex)
             {
-                retResult.Notification.Add("Recognize Face Failed! " + ex.Message);
+                retResult.Notification.Add("Detect Face Failed! " + ex.Message);
             }
             return retResult;
         }

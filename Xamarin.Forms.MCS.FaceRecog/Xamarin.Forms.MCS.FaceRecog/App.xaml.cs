@@ -13,6 +13,7 @@ namespace Xamarin.Forms.MCS.FaceRecog
             FaceClient.RegisterCommands();
 
             DependencyService.Register<IRecognizePersonCommand, RecognizePersonCommand>();
+            DependencyService.Register<IDetectPersonCommand, DetectPersonCommand>();
             DependencyService.Register<ITakePictureCommand, TakePictureCommand>();
             DependencyService.Register<IChoosePictureCommand, ChoosePictureCommand>();
             DependencyService.Register<IPersonStore, InMemoryPersonStore>();

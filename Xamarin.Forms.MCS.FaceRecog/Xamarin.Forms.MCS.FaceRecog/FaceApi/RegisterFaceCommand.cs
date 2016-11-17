@@ -44,13 +44,14 @@ namespace Xamarin.Forms.MCS.FaceRecog.FaceApi
                     if (fex.ErrorCode != FaceApiErrorCode.PersonGroupExists)
                     {
                         result.Notification.Add("Register Face Failed! " + fex.ErrorMessage);
+                        return result;
                     }
                 }
 
                 var person = await faceServiceClient.CreatePersonAsync(request.GroupId, request.PersonName);
                 using (MemoryStream ms = new MemoryStream(request.Data.Mug))
                 {
-                    string userData = JsonConvert.SerializeObject(request.Data);
+                    string userData = null; //JsonConvert.SerializeObject(request.Data);
                     await faceServiceClient.AddPersonFaceAsync(request.GroupId, person.PersonId, ms, userData);
                 }
 

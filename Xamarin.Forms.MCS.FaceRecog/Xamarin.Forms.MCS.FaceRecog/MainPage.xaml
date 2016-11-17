@@ -5,57 +5,59 @@
              xmlns:conv="clr-namespace:Wibci.Xamarin.Forms.Converters;assembly=Wibci.Xamarin.Forms.Converters"
              xmlns:local="clr-namespace:Xamarin.Forms.MCS.FaceRecog"
              Title="Mutant Registry Program">
-  <ContentPage.Content>
-    <Grid>
-      <Grid.Resources>
-        <ResourceDictionary>
-          <conv:NullValueToBooleanConverter x:Key="nvc" />
-          <conv:ByteArrayToImageSourceConverter x:Key="bisc" />
-          <conv:BooleanToInvertedBooleanConverter x:Key="bib" />
-        </ResourceDictionary>
-      </Grid.Resources>
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
-      <StackLayout>
-        <Label FontSize="Micro"
-               HorizontalTextAlignment="Center"
-               Text="by registering you agree to the terms and agreements of the Mutant Registration Act" />
-        <Button Command="{Binding DeleteAllPeopleCommand}" Text="Free The Mutants!" />
-        <Button Command="{Binding AddNewPersonCommand}" Text="Register New Mutant" />
-        <Button Command="{Binding RecognizePersonCommand}" Text="Identify Mutant" />
-        <StackLayout Orientation="Horizontal">
-          <Switch IsToggled="{Binding UseCamera}" />
-          <Label IsVisible="{Binding UseCamera}" Text="use camera" />
-          <Label IsVisible="{Binding UseCamera, Converter={StaticResource bib}}" Text="pick photo" />
-        </StackLayout>
-        <StackLayout IsVisible="{Binding UseCamera}" Orientation="Horizontal">
-          <Switch IsToggled="{Binding UseFrontCamera}" />
-          <Label IsVisible="{Binding UseFrontCamera}" Text="use front camera" />
-          <Label IsVisible="{Binding UseFrontCamera, Converter={StaticResource bib}}" Text="use back camera" />
-        </StackLayout>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <conv:NullValueToBooleanConverter x:Key="nvc" />
+                    <conv:ByteArrayToImageSourceConverter x:Key="bisc" />
+                    <conv:BooleanToInvertedBooleanConverter x:Key="bib" />
+                </ResourceDictionary>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label FontSize="Micro"
+                       HorizontalTextAlignment="Center"
+                       Text="by registering you agree to the terms and agreements of the Mutant Registration Act" />
+                <Button Command="{Binding DeleteAllPeopleCommand}" Text="Free The Mutants!" />
+                <Button Command="{Binding AddNewPersonCommand}" Text="Register New Mutant" />
+                <Button Command="{Binding RecognizePersonCommand}" Text="Identify Mutant" />
+                <Button Command="{Binding DetectPersonCommand}" Text="Scan Mutant" />
+                <StackLayout Orientation="Horizontal">
+                    <Switch IsToggled="{Binding UseCamera}" />
+                    <Label IsVisible="{Binding UseCamera}" Text="use camera" />
+                    <Label IsVisible="{Binding UseCamera, Converter={StaticResource bib}}" Text="pick photo" />
+                </StackLayout>
+                <StackLayout IsVisible="{Binding UseCamera}" Orientation="Horizontal">
+                    <Switch IsToggled="{Binding UseFrontCamera}" />
+                    <Label IsVisible="{Binding UseFrontCamera}" Text="use front camera" />
+                    <Label IsVisible="{Binding UseFrontCamera, Converter={StaticResource bib}}" Text="use back camera" />
+                </StackLayout>
 
-        <Label Text="{Binding Message}" TextColor="Red" />
-      </StackLayout>
-      <!--  TODO: Make listview of all registered people here and move recognize to own page  -->
-      <StackLayout Grid.Row="1" IsVisible="{Binding SearchResult, Converter={StaticResource nvc}}">
-        <Image HeightRequest="100"
-               Source="{Binding SearchResult.Mug,
-                                        Converter={StaticResource bisc},
-                                        ConverterParameter=ic_person}"
-               WidthRequest="100" />
-        <Label Text="{Binding SearchResult.Name}" />
-      </StackLayout>
-      <Grid Grid.RowSpan="2"
-            BackgroundColor="Gray"
-            IsVisible="{Binding IsBusy}"
-            Opacity="0.8">
-        <Label HorizontalOptions="Center"
-               Text="{Binding BusyMessage}"
-               TextColor="White"
-               VerticalOptions="Center" />
-      </Grid>
-    </Grid>
-  </ContentPage.Content>
+                <Label Text="{Binding Message}" TextColor="Red" />
+            </StackLayout>
+            <!--  TODO: Make listview of all registered people here and move recognize to own page  -->
+            <StackLayout Grid.Row="1" IsVisible="{Binding SearchResult, Converter={StaticResource nvc}}">
+                <Image HeightRequest="100"
+                       Source="{Binding SearchResult.Mug, Converter={StaticResource bisc}, ConverterParameter=ic_person}"
+                       WidthRequest="100" />
+                <Label Text="{Binding SearchResult.Name}" />
+            </StackLayout>
+            <StackLayout Grid.Row="1" IsVisible="{Binding FaceData, Converter={StaticResource nvc}}">
+                <Label FontSize="Large" Text="{Binding FaceData.Age}" />
+            </StackLayout>
+            <Grid Grid.RowSpan="2"
+                  BackgroundColor="Gray"
+                  IsVisible="{Binding IsBusy}"
+                  Opacity="0.8">
+                <Label HorizontalOptions="Center"
+                       Text="{Binding BusyMessage}"
+                       TextColor="White"
+                       VerticalOptions="Center" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
