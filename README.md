@@ -4,6 +4,8 @@ Mutant Registration Program for upload to sentinals using facial recognition to 
 
 Xamarin Forms & Microsoft Cognitive Services
 
+http://inquisitorjax.blogspot.co.za/2017/01/sentinel-mutant-registration-facial.html
+
 You will need to provide your own implementation of ApiKeyProvider that looks something like this:
 
 ```C#
